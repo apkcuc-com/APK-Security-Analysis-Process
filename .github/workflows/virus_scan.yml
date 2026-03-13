@@ -1,0 +1,22 @@
+name: APK VirusTotal Scan
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: VirusTotal Scan
+        id: vt_scan
+        uses: crazy-max/ghaction-virustotal@v4
+        with:
+          update_release_body: true
+          vt_api_key: ${{ secrets.VIRUSTOTAL_API_KEY }}
+          files: |
+            ./path/to/your/app.apk #
